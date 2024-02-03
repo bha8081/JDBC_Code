@@ -1,0 +1,45 @@
+// Save the image in Database.
+
+import java.sql.*;
+import java.io.*;
+
+public class Save_File_Db
+{
+	public static void main(String[] args) throws Exception
+	{
+		//Add image file path
+		File file = new File("F:\\Photo\\IMG_20230210_132628.jpg");
+
+		// Calculate number of bytes of image.
+		int fil = (int)file.length();
+
+		FileInputStream fis = new FileInputStream(file);
+
+		//Query
+		String query = " insert into BHAVESH.Saveimage values(?,?)";
+		System.out.println(query);
+
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:BHAVESH/bhavesh@localhost:1521:XE","system","1234");
+
+		PreparedStatement ps = conn.preparedStatement(query);
+
+		ps.setString(1, "imag");
+		ps.setBinaryStream(2, fis, fil);
+
+		int result = ps.executeUpdate();
+
+	    
+		ResultSet rs = ps.executeQuery();
+
+		while(rs.next())
+		{
+			System.out.println(rs.getInt(1)+" "+rs.getString(2));
+		}
+
+		rs.close();
+		ps.close();
+		conn.close();
+
+	}
+}

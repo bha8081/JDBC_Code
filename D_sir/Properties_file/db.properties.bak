@@ -1,0 +1,4 @@
+driver=oracle.jdbc.driver.OracleDriver
+Jdbcurl=jdbc:oracle:thin@localhost:1521:XE
+username=BHAVESH11F
+userpwd=bhavesh

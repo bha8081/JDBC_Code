@@ -1,0 +1,37 @@
+// to copy data Oracle database to MySQL database;
+
+import java.sql.*;
+
+public class Oracle_To_Mysql
+{ 
+   public static void main(String[] args) throws Exception
+	{
+	    int count = 0;
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		Connection conn1 = DriverManager.getConnection("jdbc:oracle:thin:BHAVESH11F/bhavesh@localhost:1521:XE", "system", "1234");
+		Connection conn2 = DriverManager.getConnection("jdbc:mysql://localhost:3606/DynamicInput", "root", "B@808155#iet");
+
+		Statement st1 = conn1.createStatement();
+		Statement st2 = conn2.createStatement();
+
+		ResultSet rs = st1.executeQuery("select * from BHAVESH11F.DynamicInput");
+
+		while(rs.next())
+		{
+           count++;
+		   int eid = rs.getInt(1);
+		   String ename = rs.getString(2);
+		   int esal = rs.getInt(3);
+		   String eaddr = rs.getString(4);
+		   String sqlQuery = String.format("insert into DynamicInput values(%d, '%s', %f, '%s')", eid, ename, esal, eaddr);
+		   st2.executeUpdate(sqlQuery);
+
+		//	System.out.println(rs.getInt(1)+ "\t" +rs.getString(2)+ "\t" +rs.getInt(3)+ "\t" +rs.getString(4));
+		}
+		System.out.println("Total Data copied from Oracle to MySQL:" +count);
+		//rs.close();
+		//st1.close();
+        conn1.close();
+		conn2.close();
+	}
+}

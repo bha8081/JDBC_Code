@@ -1,0 +1,23 @@
+// Program to display Columns meta information by using ResultMetaData.
+
+import java.sql.*;
+
+public class ResultSet_MetaData
+{
+	public static void main(String[] args) throws Exception
+	{
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:BHAVESH11F/bhavesh@localhost:1521:XE", "system", "1234");
+		String sqlQuery = "select * from BHAVESH11F.DynamicInput";
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(sqlQuery);
+
+		ResultSetMetaData rsmd = rs.getMetaData();
+		System.out.println("Column Number: " +rsmd.getColumnCount());
+        System.out.println("Column Name: " +rsmd.getColumnName(1));
+		System.out.println("Column Type: " +rsmd.getColumnType(1));
+
+        rs.close();
+		st.close();
+		conn.close();
+	}
+}

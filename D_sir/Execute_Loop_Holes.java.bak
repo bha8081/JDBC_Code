@@ -1,0 +1,18 @@
+// Execute method looos: executeUpdate() VS DDL.
+
+import java.sql.*;
+
+public class Execute_Loop_Holes
+{
+	public static void main(String[] args) throws Exception
+  {
+	Class.forName("oracle.jdbc.driver.OracleDriver");
+	Connection conn = DriverManager.getConnection("jdbc:oracle:thin:BHAVESH11F\bhavesh@localhost:1521:XE", "system", "1234");
+
+	Statement st = conn.createStatement();
+
+	int updateCount = st.executeUpdate("create table emp1(eno number)");
+	System.out.println(updateCount);
+	con.close();
+    }
+}

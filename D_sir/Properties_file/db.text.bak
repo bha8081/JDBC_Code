@@ -1,0 +1,3 @@
+Jdbc_url=jdbc:oracle:thin@localhost:1521:XE
+user_name=BHAVESH11F
+user_pwd=bhavesh

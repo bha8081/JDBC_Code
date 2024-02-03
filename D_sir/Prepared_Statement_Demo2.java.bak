@@ -1,0 +1,48 @@
+// Program demostrantion of preparedStatement.
+
+import java.sql.*;
+import java.util.Scanner;
+
+public class Prepared_Statement_Demo2
+{
+	public static void main(String[] args) throws Exception
+	{
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:BHAVESH11F/bhavesh@localhost:1521:XE", "system", "1234");
+
+		String sqlQuery = "insert into BHAVESH11F.PreparedStatement values(?, ?, ?, ?)";
+		PreparedStatement pst = conn.prepareStatement(sqlQuery);
+
+		Scanner sc = new Scanner(System.in);
+		while(true)
+		{
+			System.out.println("Enter Employee Number :");
+			int n = sc.nextInt();
+
+			System.out.println("Enter Employee Name :");
+			String s = sc.next();
+
+			System.out.println("Enter Employee Sal :");
+			double d = sc.nextDouble();
+
+			System.out.println("Enter Employee Addr: ");
+			String a = sc.next();
+
+			pst.setInt(1, n);
+			pst.setString(2, s);
+			pst.setDouble(3, d);
+			pst.setString(4, a);
+			pst.executeUpdate();
+
+			System.out.println("Record Inserted Successfully");
+			System.out.println("Do you want to insert more record[Yes/No]:");
+			String option = sc.next();
+
+            if (option.equalsIgnoreCase("No"))
+            {
+				break;
+            }
+		}
+		conn.close();
+	}
+}
